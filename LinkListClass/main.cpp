@@ -23,6 +23,7 @@ using namespace std;
 int main(int argc, char** argv) {
     int delData = 0;
     linkList* mylist = new linkList;
+    
     for (int i=0; i<10; i++)
     {
         mylist->AddNode(i);

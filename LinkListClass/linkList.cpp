@@ -30,12 +30,15 @@ void linkList::AddNode(int addData)
     if (head == NULL)
     {
         head = temp;
-        curr = temp;
     }
     else
     {
+        curr = head;
+        while (curr->next != NULL)
+        {
+            curr = curr->next;
+        }
         curr->next = temp;
-        curr = curr->next;
     }
 }
 void linkList::PrintList()
@@ -49,68 +52,43 @@ void linkList::PrintList()
             cout << curr->data <<",";
             curr = curr->next;
         }
+        cout << "\n";
     }
     else
     {
         cout << "empty list\n";
     }    
-    cout << "\n";
+    
 }
 void linkList::DeleteNode(int delData)
 {
-    if(head == NULL)
+    last = head;
+    curr = head;
+    
+    while((curr != NULL)&&(curr->data != delData))
     {
-        //0. empty list
-        cout << "empty list"<<endl;
+        last = curr;
+        curr = curr->next;   
+    }
+    if(curr == NULL)
+    { 
+        cout << "not found the node in the list"<< endl;  
     }
     else
     {
-        //1. only one node and matched, directly delete the node, and reset the list
-        if((head->data == delData) && (head->next == NULL))
-        {
-            delete head;
-            head = NULL;
-            curr = NULL;
-            temp = NULL;
-            cout << "only one node, matched and deleted" << endl;
-        }
-        //2. not only one node, first one matched, delete the first one and move the head to the next one
-        else if (head->data == delData)
-        {
-            temp = head;
-            head = head ->next;
-            delete temp;
-        }
-        //3. not only one node, first one not matched
-        else if(head->next != NULL)
-        {
-            last = head;
-            curr = head->next;
-            while(curr != NULL)
+            temp = curr;
+            curr = curr->next;
+            last->next = curr;
+            if( temp == head)
             {
-                //3.1 not only one node in the list, if matched(not the head) then delete the node and link last node to next node 
-                if(curr->data == delData)
-                {
-                    temp = curr;
-                    curr = curr->next;
-                    last->next = curr;
-                    delete temp;   
-                }
-                //3.2 not only one node in the list, if not matched, move curr/last one forward
-                else
-                {
-                    last = curr;
-                    curr = curr->next;
-                }
+                head = head->next;
+                temp = NULL;
             }
-        }
-        //3. only one node, but not matched
-        else 
-        {
-            cout << "only one node, not matched" << endl;
-        }
+            delete temp;
+            cout << "found and deleted\n";
     }
 }
+
 linkList::~linkList() {
     while(head != NULL)
     {

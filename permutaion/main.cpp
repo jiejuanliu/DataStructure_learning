@@ -17,30 +17,38 @@
 #include <array>
 
 using namespace std;
-bool checkPermutation(string x, string y);
-/*
+bool checkPermutation(string& x, string& y);
+/*Supposed the length of the string is the same
  * 
  */
 int main(int argc, char** argv) {
-    string a ("names");
-    string b ("smean");
+    string a ("applejuice");
+    string b ("eciujelpa");
     bool result = false;
     cout<<"string 1:"<<a<<endl;
-    cout<<"string 1:"<<b<<endl;
+    cout<<"string 2:"<<b<<endl;
     result = checkPermutation(a, b);
    
     if(result)
         cout<< "the two strings' permutation are the same\n";
+    else
+        cout<< "permutation of the two strings are NOT the same\n";
     return 0;
 }
 
-bool checkPermutation(string x, string y)
+bool checkPermutation(string & x, string &y)
 {
     array<int, 256> freq;
+    freq.fill(0);
+    
+    if(x.size() != y.size())
+        return false;
+    
     for(int i=0;i<x.size();i++)
     {
         int val = x.at(i);
-        (freq.at(val))++;
+        (freq[val])++;
+        cout <<"feq["<<val<<"]"<<freq[val]<<endl;
     }
     
     for(int i=0;i<y.size();i++)
@@ -50,5 +58,6 @@ bool checkPermutation(string x, string y)
         if(freq[val]<0)
             return false;        
     }
+
     return true;
 }

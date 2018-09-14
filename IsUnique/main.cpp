@@ -16,6 +16,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
+#include <array>
 
 using namespace std;
 
@@ -26,20 +27,22 @@ bool IsUnique(string a);
 bool IsUnique(string a)
 {
     int length = a.size();
-    bool charList[256];//ASCII 256
+    array<bool,256> charList;
     int val;
-    
+   
     cout <<"------------------\n";
     cout <<"string=" << a <<endl;
     cout <<"length=" << length <<endl;
-    
+    cout <<"size of arry=" << charList.size()<<endl;
+  
     for(int i=0; i<length; i++)
     {
-        val = a[i];
-        if(charList[val] != false)
+        val = a.at(i);
+        if(charList[val])
+        {
             return false;
-        else
-            charList[val] = true;
+        }
+        charList[val] = true; 
     }
     return true;
 }
@@ -54,7 +57,7 @@ int main(int argc, char** argv) {
     if(result == false)
         cout <<"not unique\n";
     else
-        cout <<"unique";
+        cout <<"IS unique";
     result = IsUnique(str2);
     
     if(result == false)

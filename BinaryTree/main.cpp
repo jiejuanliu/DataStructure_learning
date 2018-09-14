@@ -38,6 +38,10 @@ int main(int argc, char** argv) {
     }
     smallest = myBST->FindSmallest();
     cout << "\nsmallest key is:"<<smallest<<endl;
+    cout << "input -1 for exiting\n";
+    cin >> i;
+    if(i == -1)
+      delete myBST;  
     return 0;
 }
 

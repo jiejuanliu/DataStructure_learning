@@ -28,6 +28,7 @@ private:
     node* ReturnNodePrivate(int key, node* ptr);
     int FindSmallest(node* ptr);
     void RemoveNode(int key, node* ptr);
+    void RemoveSubtree(node* ptr);
 public:
     BST();
     ~BST();

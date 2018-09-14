@@ -17,7 +17,7 @@ BST::BST()
 
 BST::~BST()
 {
-
+    RemoveSubtree(root);
 }
 
 BST::node* BST::CreateLeaf(int key)
@@ -40,7 +40,7 @@ void BST::AddLeafPrivate(int key, node* ptr)
     {
         root = CreateLeaf(key);
     }
-    else if(key < ptr->key)
+    else if(key <= ptr->key)
     {
         if(ptr->left != NULL)
         {
@@ -51,7 +51,7 @@ void BST::AddLeafPrivate(int key, node* ptr)
             ptr->left = CreateLeaf(key);
         }
     }
-    else if(key > ptr->key)
+    else
     {
         if(ptr->right != NULL)
         {
@@ -61,12 +61,7 @@ void BST::AddLeafPrivate(int key, node* ptr)
         {
             ptr->right = CreateLeaf(key); 
         }
-    }           
-    else
-    {
-        cout << "key is already existed in the binary tree" << endl;
-    }
-   
+    }             
 }
 
 void BST::PrintInOrder()
@@ -184,10 +179,23 @@ void BST::RemoveNode(int key)
 void BST::RemoveNode(int key, node* ptr)
 {
     node * currPtr;
-    currPtr = ReturnNode(key, ptr);
+    currPtr = ReturnNodePrivate(key, ptr);
     if(currPtr == NULL)
     {
-        cout <<"key is not existed in the tree\n"
-    }
-    
+        cout <<"key is not existed in the tree\n";
+    }   
 }
+
+void BST::RemoveSubtree(node* ptr)
+{
+    if(ptr!=NULL)
+    {
+        if(ptr->left!=NULL)
+            RemoveSubtree(ptr->left);
+        if(ptr->right!=NULL)
+            RemoveSubtree(ptr->right);
+        cout << "delete node:"<<ptr->key << endl;
+        delete ptr;
+    }
+}
+

@@ -57,16 +57,45 @@ bool is_palindrome_permutation(const Sequence& seq)
     return is_palindrome_permutation(std::begin(seq), std::end(seq));
 }
 
+bool is_palindrome_permutation2(char* p)
+{
+    std::unordered_map<char, size_t> m;
+    
+    while(*p)
+    {
+        if(std::isalpha(*p))
+        {
+            m[*p]++;
+        }
+        p++;
+    }
+         
+   for (auto& x: m) {
+    std::cout << "Element [" << x.first << ":" << x.second << "]";
+    std::cout << " is in bucket #" << m.bucket (x.first) << std::endl;
+  }
+    int count=0;
+    for(auto& p:m)
+    {
+        if(p.second%2==1)
+            ++count;
+        if(count==2)
+        {
+            return false;
+        }
+    }
+    return true;
+}
 int main(int argc, char** argv) {
     char str[] = "tacocat";
     cout << "string:"<<str<<endl;
     cout << "Palindrome permutation: "
          << std::boolalpha
+         << "size:" << sizeof(str)<<"," <<sizeof(str[0])
          << is_palindrome_permutation(str,
                                       str + sizeof(str) / sizeof(str[0]))
          << endl;
-    
-   
+
     std::string str2{"atcocta"};
     cout << "string:"<<str2<<endl;
     cout << "Palindrome permutation: "
@@ -78,5 +107,10 @@ int main(int argc, char** argv) {
     cout << "Palindrome permutation: "
          << is_palindrome_permutation(vec)
          << endl;
+    
+    char str3[] ="myhijkjihym";
+    cout << "string:"<<str3<<endl;
+    cout <<"Palindrome perputation: "
+          << is_palindrome_permutation2(str3) <<endl;
     return 0;
 }

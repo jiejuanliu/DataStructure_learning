@@ -24,27 +24,10 @@ private:
     
 public:
     stringBuilder();
-    //stringBuilder & append(const std::string & str);
-    stringBuilder & append(const std::string & str)
-    {
-        scratch.append(str);
-        if(scratch.size()> ScratchSize)
-        {
-            main.append(scratch);
-            scratch.resize(0);
-    }
-        return *this;
-    };
-   // std::string & str();
-    std::string & str()
-    {
-        if(scratch.size()>0)
-        {
-            main.append(scratch);
-            scratch.resize(0);
-        }
-        return main;
-    };
+    stringBuilder & append(const std::string & str);
+    
+    std::string & str();
+    
     virtual ~stringBuilder();
 
 };
